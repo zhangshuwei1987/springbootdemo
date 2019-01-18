@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" href="modules/element-ui/index.css">
+<link rel="stylesheet" href="css/common.css">
+<!-- basic scripts -->
+<script src='modules/jquery/jquery-2.0.3.min.js'></script>
+
+<script src="modules/vuejs/vue.min.js"></script>
+<!-- <script src="resources/modules/vuejs/vue-router.min.js"></script> -->
+<script src="modules/element-ui/index.js"></script>
+<script src="js/common.js"></script>
+<script src="modules/moment/moment.min.js"></script>
+
+<style type="text/css">
+	html,body{
+		height:100%;
+		margin:0px;
+		overflow:hidden;
+	}
+	.height100{
+		height:100%;
+	}
+	.header{
+		background-color:#6D7993;
+		width:100%;
+		position:fixed;
+		z-index:999;
+	}
+	.header:after{
+		visibility: hidden;
+		  display: block;
+		  font-size: 0;
+		  content: " ";
+		  clear: both;
+		  height: 0;
+	}
+	.header .left{
+		float:left;
+		
+		font-size:1.5vw;
+		color:#fff;
+		
+		padding:20px 10px 20px 0;
+		
+	}
+	.header .right{
+		float:right;
+		
+		
+		padding:30px 10px 30px 0;
+		
+	}
+	.header .left *{
+		vertical-align:middle;
+	}
+	.header .right *{
+		font-size:20px;
+		color:#fff;
+		text-decoration:none;
+		vertical-align:middle;
+	}
+	.bodyMain{
+		height:100%;
+		/* background-color:#D9D9D9; */
+	}
+	
+	.bodyMain:after{
+		visibility: hidden;
+		  display: block;
+		  font-size: 0;
+		  content: " ";
+		  clear: both;
+		  height: 0;
+	}
+	.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
+  	 .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+  
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+  
+  .col_25{
+  	float:left;width:25%;
+  }
+  .under_decoration:after{
+  	display: block;
+  	content: " ";
+  	width:100%;
+  	border-top:1px solid #fff
+  }
+  .el-card__body{
+  	height:100%;
+  }
+  
+  .el-input__inner{
+  	height:80px;
+  	font-size: 18px;
+  }
+  
+</style>
+<div id = "header"></div>
+<body>
+	<div id="login" class="height100">
+		<div class="header">
+			<div  style="margin:0 auto;width:90%;">
+				<div class="left">	
+					<img src="/imgs/logo.jpg" style="height:50px;"/>				
+						&nbsp;&nbsp;进步点赞系统
+				</div>
+				<div class="right">
+					<a href="http://qb3z.mhedu.sh.cn/" target="_blank"> 前往门户网站 </a>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div :style="{height:mainHeight+'px','background-color':'#eff4f8'}">
+			
+				<div class="height100" style="float:left;width:10%;position:relative;"></div>
+				<div class="height100" style="float:left;width:25%;height:100%;position:relative;">							
+										
+ 						
+						<div style="width:90%;position:absolute;top:25%;left:10%;height:100%">
+							<el-card shadow="always" style="background-color:#9099a2a6;height:60%;">
+								 <div slot="header" style="margin:0 auto;color:#fff;font-size:25px;width:250px;text-align:center;">
+								    请输入账户名及密码							    
+								  </div>
+							<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2"  class="demo-ruleForm">
+							  <el-form-item></el-form-item>
+							  <el-form-item   prop="userName">
+							  	
+							    <el-input type="text" placeholder="请输入用户名" v-model="ruleForm2.userName" style="height:80px;" auto-complete="off">
+							    	<template slot="prepend"><img src="/imgs/teacher.png" style="width:50px;"/></template>
+							    </el-input>
+							  </el-form-item>
+							  <el-form-item  prop="passWord" style="margin-top:20px;">
+							    <el-input type="password" placeholder="请输入密码" v-model="ruleForm2.passWord" auto-complete="off">
+							    	<template slot="prepend"><img src="/imgs/password.png" style="width:50px;"/></template>
+							    </el-input>
+							  </el-form-item>
+							  <el-form-item style="text-align:center;vertical-align:middle;">
+							  	<el-checkbox v-model="isRemember" style="float:left;padding-top:10px;color:#fff;font-size:20px;">记住密码？</el-checkbox>
+							    <el-button style="width:40%;float:right;background-color:#6D7993;border:0px;font-size:20px;" type="primary" @click="submitForm('ruleForm2')">登&nbsp;&nbsp;&nbsp;入</el-button>
+							    
+							  </el-form-item>							   
+							</el-form>
+							
+							</el-card>
+						</div>						
+									
+				</div>
+				<div class="height100" style="float:left;width:55%;position:relative;">
+					<div style="margin:20% auto 0 auto;width:90%;">
+						<div style="font-size:4vw;letter-spacing:1.3vw;line-height:7vw;text-align:right;padding-right:20px;color:#96858F">
+							<div style="font-family:KaiTi;font-weight:700">教学生核心素养</div>
+							<div><span style="font-family:KaiTi;font-weight:700;padding-bottom: 5px;border-bottom: 2px solid #96858F;">向特色办学迈进</span></div>
+						</div>
+						<div style="height:15vh;"></div>
+						<div style="width:100%;">
+							<ul style="list-style:none;float:right">
+								<li style="float:left;margin-right:30px;cursor:pointer;" @click="joinFavorite"><img  src="/imgs/pc.png" style="width:100px;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:24px;">Windows</div></li>
+								<li style="float:left;margin-right:30px;cursor:pointer;" @click="openTwoCode('IOS')"><img src="/imgs/mac.png" style="width:100px;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:24px;">IOS</div></li>
+								<li style="float:left;margin-right:30px;cursor:pointer;" @click="openTwoCode('Android')"><img src="/imgs/android.png" style="width:100px;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:24px;">Android</div></li>
+							</ul>
+							<!-- <div class="col_25">&nbsp;</div>
+							<div class="col_25"><div style="margin:0 auto;width:40%"><img src="/imgs/pc.png" style="width:100%;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:1vw;">Windows</div></div></div>
+							<div class="col_25"><div style="margin:0 auto;width:40%"><img src="/imgs/mac.png" style="width:100%;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:1vw;">MAC</div></div></div>
+							<div class="col_25"><div style="margin:0 auto;width:40%"><img src="/imgs/android.png" style="width:100%;"/><div style="text-align:center;margin-top:20px;color:#6D7993;font-size:1vw;">Android</div></div></div>
+						 -->
+						</div>
+						<!-- <el-carousel :interval="4000" type="card" height="300px">
+						    <el-carousel-item v-for="item in 5" :key="item">
+						      <h3><img alt="" :src='"/imgs/"+item+".jpg"' style="width:100%;height:300px;"></h3>
+						    </el-carousel-item>
+						</el-carousel> -->
+					</div>
+					
+					
+				</div>
+				<div class="height100" style="float:left;width:10%;"></div>
+			
+			
+		</div>
+		
+	</div>
+</body>
+<div id="footer"></div>
+	<script type="text/javascript">
+	
+	var storage = window.localStorage;
+	var loginVue = new Vue({
+		//绑定dom的地方
+		el:'#login',
+		//数据
+		 data:function(){			 
+			       var validatePass = function(rule, value, callback){
+			         if (value === '') {
+			          callback(new Error('请输入密码'));
+			        } else {
+			          if (this.ruleForm2&&this.ruleForm2.checkPass !== '') {
+			            this.$refs.ruleForm2.validateField('passWord');
+			          }
+			          callback();
+			        } 
+			      }; 
+			      return {
+			    	isRemember:false,
+			        ruleForm2: {
+			          userName: '',
+			          passWord: ''
+			        },
+			        mainHeight:0,
+			        rules2: {
+			          pass: [
+			            { validator: validatePass, trigger: 'blur' }
+			          ]
+			        }
+			      };
+			 },
+		
+		 
+		//页面所有加载好以后,进入的方法
+		mounted:function(){
+			//对data赋值
+			this.user={
+						id:2,
+						name:"谢谢2"
+			};
+			if (storage["j_username"] && storage["j_password"]) {
+			      this.ruleForm2.userName = storage["j_username"];
+			      this.ruleForm2.passWord = storage["j_password"];
+			      this.isRemember = storage["isRemember"] === "false"? false : true;
+			}
+			this.mainHeight = Number(window.innerHeight)
+		},
+		//编写页面交互方法的地方
+		methods:{
+			submitForm:function(formName) {				
+		        this.$refs[formName].validate(function(valid){		        	
+		          if (valid) {
+		        	  	return true
+		          } else {
+		            console.log('error submit!!');
+		            return false;
+		          }		          
+		        });		        
+		        doAjax({url:"/login",data:{"j_username":this.ruleForm2.userName,"j_password":this.ruleForm2.passWord},successCallback:(data)=>{
+		        	storage["isRemember"] = this.isRemember;
+		        	if(this.isRemember){
+		        		storage["j_username"] = this.ruleForm2.userName;
+		        		storage["j_password"] = this.ruleForm2.passWord;
+		        	}else{
+		        		storage["j_username"] = "";
+		        		storage["j_password"] = "";
+		        	}
+		        	storage["user"] = JSON.stringify(data);
+		        	//if(data.isTeacher){
+		        		location.href = "pages/index.jsp#pages/modules/dothumbsup/do.jsp";
+		        	//}else{
+		        	//	location.href = "pages/index_stu.jsp";
+		        	//}
+		        	
+		        }})
+		        
+		      },
+		      joinFavorite:function(){
+		    	  var url = window.location;
+		          var title = document.title;
+		          var ua = navigator.userAgent.toLowerCase();
+		          if (ua.indexOf("msie 8") > -1) {
+		              external.AddToFavoritesBar(url, title, '');//IE8
+		          } else {
+		              try {
+		                  window.external.addFavorite(url, title);
+		              } catch (e) {
+		                  try {
+		                      window.sidebar.addPanel(title, url, "");//firefox
+		                  } catch (e) {
+		                      alert("加入收藏失败，请使用Ctrl+D进行添加");
+		                  }
+		              }
+		          }		  
+		      },
+		      openTwoCode:function(type){
+		    	var url = ""
+				if(type=="IOS"){
+					url = ""
+				}else if(type="Android"){
+					
+				}
+			  },
+		      resetForm:function(formName) {
+		        this.$refs[formName].resetFields();
+		      }
+		}
+	});
+	
+</script>
+</html>
